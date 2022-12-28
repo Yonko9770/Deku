@@ -103,7 +103,9 @@ buttons = [
     ],
     [
         InlineKeyboardButton(text="【HELP】", callback_data="help_back"),
-        InlineKeyboardButton(text="【Support】", url="https://t.me/Victor_Nikiforov_Support"),
+        InlineKeyboardButton(
+            text="【Support】", url="https://t.me/Victor_Nikiforov_Support"
+        ),
     ],
 ]
 
@@ -198,7 +200,13 @@ def start(update: Update, context: CallbackContext):
                     update.effective_chat.id,
                     HELPABLE[mod].__help__,
                     InlineKeyboardMarkup(
-                        [[InlineKeyboardButton(text="Go Back", callback_data="help_back")]]
+                        [
+                            [
+                                InlineKeyboardButton(
+                                    text="Go Back", callback_data="help_back"
+                                )
+                            ]
+                        ]
                     ),
                 )
 
@@ -221,13 +229,14 @@ def start(update: Update, context: CallbackContext):
                     escape_markdown(first_name),
                     escape_markdown(uptime),
                     sql.num_users(),
-                    sql.num_chats()),                        
+                    sql.num_chats(),
+                ),
                 reply_markup=InlineKeyboardMarkup(buttons),
                 parse_mode=ParseMode.MARKDOWN,
                 timeout=60,
                 disable_web_page_preview=False,
             )
-              
+
     else:
         update.effective_message.reply_animation(
             GROUP_START_IMG,
@@ -239,7 +248,8 @@ def start(update: Update, context: CallbackContext):
                 [
                     [
                         InlineKeyboardButton(
-                            text="【Support】", url="https://t.me/Victor_Nikiforov_Support"
+                            text="【Support】",
+                            url="https://t.me/Victor_Nikiforov_Support",
                         ),
                     ],
                 ]
@@ -304,6 +314,7 @@ def error_callback(update: Update, context: CallbackContext):
         print(error)
         # handle all other telegram related errors
 
+
 def help_button(update, context):
     query = update.callback_query
     mod_match = re.match(r"help_module\((.+?)\)", query.data)
@@ -327,7 +338,13 @@ def help_button(update, context):
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True,
                 reply_markup=InlineKeyboardMarkup(
-                    [[InlineKeyboardButton(text="【Hᴇʟᴘ Mᴇɴᴜ】", callback_data="help_back")]]
+                    [
+                        [
+                            InlineKeyboardButton(
+                                text="【Hᴇʟᴘ Mᴇɴᴜ】", callback_data="help_back"
+                            )
+                        ]
+                    ]
                 ),
             )
 
@@ -358,14 +375,15 @@ def help_button(update, context):
                 reply_markup=InlineKeyboardMarkup(
                     paginate_modules(0, HELPABLE, "help")
                 ),
-            )   
-            
+            )
+
         # ensure no spinny white circle
         context.bot.answer_callback_query(query.id)
         # query.message.delete()
 
     except BadRequest:
         pass
+
 
 def hori_about_callback(update, context):
     query = update.callback_query
@@ -384,20 +402,33 @@ def hori_about_callback(update, context):
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
                 [
-                 [
-                    InlineKeyboardButton(text="Network", url="https://t.me/Hashira_Association"),
-                    InlineKeyboardButton(text="Owner", url="https://t.me/omegaflower"),
-                 ],
-                 [
-                    InlineKeyboardButton(text="Support", url="https://t.me/Victor_Nikiforov_Support"),
-                    InlineKeyboardButton(text="Credits", url="https://t.me/ricks_2005"),
-                 ],
-                 [
-                    InlineKeyboardButton(text="Source Code", url="https://github.com/orofer-xt/LalisaManobalRobot"),
-                 ],
-                 [
-                    InlineKeyboardButton(text="Go Back", callback_data="emiko_back"),
-                 ]
+                    [
+                        InlineKeyboardButton(
+                            text="Network", url="https://t.me/Hashira_Association"
+                        ),
+                        InlineKeyboardButton(
+                            text="Owner", url="https://t.me/omegaflower"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="Support", url="https://t.me/Victor_Nikiforov_Support"
+                        ),
+                        InlineKeyboardButton(
+                            text="Credits", url="https://t.me/ricks_2005"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="Source Code",
+                            url="https://github.com/orofer-xt/LalisaManobalRobot",
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="Go Back", callback_data="emiko_back"
+                        ),
+                    ],
                 ]
             ),
         )
@@ -453,7 +484,9 @@ def hori_about_callback(update, context):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [
-                        InlineKeyboardButton(text="Support", url="t.me/Victor_Nikiforov_Support"),
+                        InlineKeyboardButton(
+                            text="Support", url="t.me/Victor_Nikiforov_Support"
+                        ),
                         InlineKeyboardButton(
                             text="Updates", url="https://t.me/Victor_Nikiforov_Support"
                         ),
@@ -873,4 +906,3 @@ if __name__ == "__main__":
     pbot.start()
     main()
     idle()
-
